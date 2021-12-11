@@ -96,6 +96,8 @@ class DebugNaNsTest(jtu.JaxTestCase):
       with self.assertRaisesRegex(FloatingPointError, msg):
         f(1)
 
+  @unittest.skipIf(jax._src.lib._xla_extension_version < 51,
+                   "requires jaxlib >= 0.1.76")
   def testPmap(self):
     pmap_funcs = [api._python_pmap, api._cpp_pmap]
 
